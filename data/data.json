@@ -1,80 +1,14 @@
 [
   {
     "code": "1",
-    "logo": "img/farmacity-logo.png",
-    "pregunta": "¿Que te parecio la atención del cajero?",
-    "pageCaritas": "Si",
-    "cantCaritas": 4,
-    "caritas": [
-      {
-        "src": "img/face-1.png",
-        "alt": "face-1",
-        "onClick": "function() {obtenerPágina}"
-      },
-      {
-        "src": "img/face-2.png",
-        "alt": "face-2",
-        "onClick": "function() {obtenerPágina}"
-      },
-      {
-        "src": "img/face-3.png",
-        "alt": "face-3",
-        "onClick": "function() {obtenerPágina}"
-      },
-      {
-        "src": "img/face-4.png",
-        "alt": "face-4",
-        "onClick": "function() {obtenerPágina}"
-      }
-    ],
-    "botonera": "Si",
-    "subpregunta": "¿Cual es el principal motivo?",
-    "cantBotones": 5,
-    "botones": "<button id='q1' class='option'>ATENCIÓN</button><button id='q2' class='option'>AGILIDAD</button><button id='q3' class='option'>VELOCIDAD</button><button id='q4' class='option'>TRATO</button><button id='q5' class='option'>OTRO</button>",
-    "cajaTexto": "No"
+    "logo": "img/farmacity-logo.png"
   },
   {
     "code": "2",
-    "logo": "img/ford-logo.png",
-    "pregunta": "¿Que te parecio la atención del vendedor?",
-    "caritas": "Si",
-    "cantCaritas": 4,
-    "botonera": "No",
-    "cajaTexto": "Si",
-    "mensaje": "¿Te gustaría ampliarnos tu experiencia?"
+    "logo": "img/ford-logo.png"
   },
   {
     "code": "3",
-    "logo": "img/sanofi-logo.png",
-    "pregunta": "¿Que te parece el servicio de Concierge?",
-    "pageCaritas": "Si",
-    "cantCaritas": 4,
-    "caritas": [
-      {
-        "src": "img/face-1.png",
-        "alt": "face-1",
-        "onClick": "function() {obtenerPágina}"
-      },
-      {
-        "src": "img/face-2.png",
-        "alt": "face-2",
-        "onClick": "function() {obtenerPágina}"
-      },
-      {
-        "src": "img/face-3.png",
-        "alt": "face-3",
-        "onClick": "function() {obtenerPágina}"
-      },
-      {
-        "src": "img/face-4.png",
-        "alt": "face-4",
-        "onClick": "function() {obtenerPágina}"
-      }
-    ],
-    "botonera": "Si",
-    "subpregunta": "¿Cual es el principal motivo de tu opinion?",
-    "botones": "<button id='q1' class='option'>ATENCIÓN</button><button id='q2' class='option'>AGILIDAD</button><button id='q3' class='option'>FACILIDAD</button><button id='q4' class='option'>ESPERA</button><button id='q5' class='option'>HORARIOS</button>",
-    "cajaTexto": "Si",
-    "mensaje": "¿Te gustaría dejarnos algún comentario adicional?"
+    "logo": "img/sanofi-logo.png"
   }
 ]

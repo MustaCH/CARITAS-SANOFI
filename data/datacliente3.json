@@ -1,0 +1,82 @@
+[
+  {
+    "pagina": "1",
+    "pregunta": "¿Que te parecio la atención del cajero?",
+    "tipo": "caritas",
+    "enviar": "no",
+    "urlfin":"",
+    "btnretroceso":"no",
+
+    "btns": [
+      {
+        "txt": "img/face-1.png",
+        "url": "5"
+      },
+      {
+        "txt": "img/face-2.png",
+        "url": "2"
+      },
+      {
+        "txt": "img/face-3.png",
+        "url": "2"
+      },
+      {
+        "txt": "img/face-4.png",
+        "url": "3"
+      }
+    ]
+  },
+  {
+    "pagina": "2",
+    "pregunta": "¿Que te parecio la atención del vendedor?",
+    "subpregunta": "¿Cual es el principal motivo de tu opinion?",
+    "tipo": "botoneraSub",
+    "enviar": "no",
+    "urlfin":"",
+    "btnretroceso":"si",
+    "btns": [
+      {
+        "txt": "ATENCION",
+        "url": "3"
+      },
+      {
+        "txt": "AGILIDAD",
+        "url": "3"
+      },
+      {
+        "txt": "FACILIDAD",
+        "url": "3"
+      },
+      {
+        "txt": "ESPERA",
+        "url": "4"
+      }
+    ]
+  },
+  {
+    "pagina": "3",
+    "pregunta": "¿Que te parece el servicio de Concierge?",
+    "tipo": "cajatxt",
+    "btnretroceso":"si",
+    "enviar": "si",
+    "urlfin":"4",
+    "url": "4"
+  },
+  {
+    "pagina": "4",
+    "pregunta": "Enviado!",
+    "tipo": "fin",
+    "texto": "Muchas gracias! Que tenga un buen dia"
+
+  },
+  {
+    "pagina": "5",
+    "pregunta": "Observe el siguiente video:",
+    "tipo": "video",
+    "iframe": "https://www.youtube.com/embed/Px_i-ztw8dY",
+    "txt": "CONTINUAR",
+    "btnretroceso": "no",
+    "enviar": "no",
+    "url": "2"
+  }
+]
