@@ -18,7 +18,7 @@ header {
   display: flex;
   justify-content: center;
   margin-top: 5%;
-  margin-bottom: 5%;
+  margin-bottom: 1%;
 }
 header img {
   width: 20%;
@@ -81,7 +81,7 @@ header img {
 }
 
 #face-section {
-  padding-top: 5%;
+  padding-top: 1%;
 }
 
 #face-cont {
@@ -276,7 +276,7 @@ header img {
   text-align: center;
   align-self: center;
   width: 30%;
-  margin-top: 5%;
+  margin-top: 2%; 
   padding: 3%;
   border-radius: 1em;
   font-weight: bold;
@@ -364,3 +364,18 @@ header img {
   border: hidden;
 }
 
+.retroceso:hover {
+  background-color: black;
+  color: white;
+  transform: translate(0px, 0px) scale(1.1, 1.1);
+}
+
+#btn-continuar:hover {
+  background-color: black;
+  color: white;
+  transform: translate(0px, 0px) scale(1.1, 1.1);
+}
+
+#error-msg{
+  margin-top: 1rem;
+}
