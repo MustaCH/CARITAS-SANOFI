@@ -1,3 +1,5 @@
+//localStorage.removeItem('datosGuardados');
+
 const userData = JSON.parse(sessionStorage.getItem("user"));
 if (userData) {
   crearHeader();
@@ -6,6 +8,7 @@ if (userData) {
   window.location.replace("login.html");
 }
 
+
 //==============================================================
 //AREAS MODIFICABLES
 //==============================================================
@@ -13,15 +16,17 @@ if (userData) {
 let pageCaritas;
 let pageOptions;
 let pageTxt;
-let pageVideo;
 let greeting;
 
 //==============================================================
 //VALORES DE PREGUNTA
 //==============================================================
 
-let datos = [];
+//let datos = [];
+let datos = JSON.parse(localStorage.getItem('datosGuardados')) || [];
+let botonSeleccionado = false;
 let recorrido = [];
+let datosGuardados= [];
 let ultimotexto;
 let calif;
 let aspect;
@@ -40,41 +45,23 @@ if (localStorage.getItem("users")) {
   users = [];
 }
 
-let fecha = new Date();
-
-class User {
-  constructor(calif, aspect, comment, fecha) {
-    this.calif = calif;
-    this.aspect = aspect;
-    this.comment = comment;
-    this.fecha = fecha;
-  }
-}
-
-function storeUser(user) {
-  return users.unshift(user);
-}
-
-function storeStorage(user) {
-  let storage = localStorage.setItem("users", JSON.stringify(user));
-  return storage;
-}
-
 //==============================================================
 // INICIO DE PROGRAMA
 //==============================================================
 
 function ObtenerPagina(Urlsiguente) {
-  // BORRAMOS SECCION ANTERIOR
-  const userData = document.getElementById("face-section");
-  userData.remove();
 
-  if (Urlsiguente != "fin") {
-    fetch("data/datacliente1.json")
+  // BORRAMOS SECCION ANTERIOR
+  const userDatasec = document.getElementById("face-section");
+  userDatasec.remove();
+
+    rutajsoncliente = `data/datacliente${userData.code}.json`
+    fetch(rutajsoncliente)
       .then((response) => response.json())
       .then((data) => {
         data.forEach((pregunta) => {
-          if (pregunta.code === Urlsiguente) {
+          if (pregunta.pagina === Urlsiguente) {
+
             // EVALUO EL TIPO DE PREGUNTA
 
             /////////////
@@ -92,14 +79,7 @@ function ObtenerPagina(Urlsiguente) {
                 urlbtn.push(btn.url);
               });
 
-              caritas(
-                pregunta.pregunta,
-                pregunta.code,
-                botones,
-                urlbtn,
-                pregunta.btnretroceso,
-                pregunta.enviar
-              );
+              caritas(pregunta.pregunta,pregunta.pagina, botones, urlbtn,pregunta.btnretroceso, pregunta.enviar,pregunta.urlfin);
             }
 
             ////////////
@@ -118,14 +98,7 @@ function ObtenerPagina(Urlsiguente) {
                 urlbtn.push(btn.url);
               });
 
-              botonera(
-                pregunta.pregunta,
-                pregunta.code,
-                botones,
-                urlbtn,
-                pregunta.btnretroceso,
-                pregunta.enviar
-              );
+              botonera(pregunta.pregunta,pregunta.pagina, botones, urlbtn,pregunta.btnretroceso,pregunta.enviar,pregunta.urlfin);
             }
 
             ////////////////
@@ -147,9 +120,10 @@ function ObtenerPagina(Urlsiguente) {
               botoneraSub(
                 pregunta.pregunta,
                 pregunta.subpregunta,
-                pregunta.code,
+                pregunta.pagina,
                 botones,
                 urlbtn,
+                pregunta.btnretroceso,
                 pregunta.enviar
               );
             }
@@ -160,19 +134,18 @@ function ObtenerPagina(Urlsiguente) {
 
             if (pregunta.tipo === "cajatxt") {
               // seteo la variables que necesito para la funcion
-              cajatxt(
-                pregunta.pregunta,
-                pregunta.code,
-                pregunta.url,
-                pregunta.btnretroceso,
-                pregunta.enviar
-              );
+              cajatxt(pregunta.pregunta, pregunta.pagina, pregunta.url,pregunta.btnretroceso,pregunta.enviar,pregunta.urlfin);
             }
 
+            //////////////
+            // VIDEO  //
+            ////////////V
+
             if (pregunta.tipo === "video") {
+              console.log("video:")
               video(
                 pregunta.pregunta,
-                pregunta.code,
+                pregunta.pagina,
                 pregunta.iframe,
                 pregunta.txt,
                 pregunta.btnretroceso,
@@ -180,15 +153,23 @@ function ObtenerPagina(Urlsiguente) {
                 pregunta.url
               );
             }
+
+            /////////////////////
+            // FIN DE PANTALLA //
+            /////////////////////
+
+            if (pregunta.tipo === "fin") {
+              // seteo la variables que necesito para la funcion
+              findepantalla(pregunta.pagina, pregunta.pregunta,pregunta.texto);
+            }
+
           }
         });
       })
       .catch((error) => console.error(error));
-  } else {
-    // SI LLEGO A LA PAGINA FIN CARGA LA PAGINA FINAL
-    createGreeting();
-  }
+
 }
+
 
 function crearHeader() {
   header = document.createElement("header");
@@ -205,22 +186,26 @@ function crearHeader() {
   document.body.append(header);
 }
 
-///////////////////////////
-///// PLANTILLAS  ////////
-//////////////////////////
+////////////////////////////////
+///// PLANTILLAS CARITAS ////////
+///////////////////////////////
 
-function caritas(pregunta, pagina, botones, urlbtn, btnretroceso, enviar) {
+function caritas(pregunta, pagina, botones, urlbtn, btnretroceso, enviar,urlenviar) {
   pageCaritas = document.createElement("section");
-  pageCaritas.innerHTML = `     
-    <section id="face-section">
-      <div id="q-cont">
-        <h1 class="animate__animated animate__zoomIn" id="pregunta">
-          ${pregunta}
-        </h1>
-      </div>
-      <div id="face-cont" class="animate__animated animate__zoomIn"></div>
-      <div id="enviar-cont" class="animate__animated animate__zoomIn"></div>
-    </section>`;
+  pageCaritas.innerHTML = `
+      
+      <section id="face-section">
+   
+    <div id="q-cont">
+      <h1 class="animate__animated animate__zoomIn" id="pregunta">
+        ${pregunta}
+      </h1>
+   
+    </div>
+    <div id="face-cont" class="animate__animated animate__zoomIn"></div>
+    <div id="enviar-cont" class="animate__animated animate__zoomIn"></div>
+    
+  </section>`;
   document.body.append(pageCaritas);
 
   const face_cont = document.getElementById("face-cont");
@@ -230,33 +215,41 @@ function caritas(pregunta, pagina, botones, urlbtn, btnretroceso, enviar) {
     caritas_btn = document.createElement("button");
     caritas_btn.innerHTML = `<img src="${botones[i]}" alt="" />`;
     caritas_btn.id = `face-${i + 1}`;
-    caritas_btn.className = "normal";
     caritas_btn.value = i + 1;
-    console.log("enviar:" + enviar);
     caritas_btn.addEventListener("click", () => {
+     
       if (enviar === "si") {
+        botonSeleccionado = true;
+        document.querySelectorAll('#face-cont button').forEach((btn) => {
+          btn.classList.remove('selected');
+        });
+        document.getElementById("error-msg").style.display = "none";
         caritas_btn.className = "selected";
       } else {
         crearrecorrido(pagina);
         ObtenerPagina(urlbtn[i]);
-        cargarData(i, pagina);
+        cargarData(i+1, pagina,"");
       }
     });
     face_cont.append(caritas_btn);
   }
 
-  if (enviar == "si") {
-    insertarbotonenviar();
+  if(btnretroceso == "si"){
+    insertarbotonretroceso()
   }
 
-  if (btnretroceso == "si") {
-    insertarbotonretroceso();
+
+  if (enviar == "si") {
+    insertarbotonenviar(urlenviar);
   }
 }
 
-// ------------------- //
 
-function botonera(pregunta, pagina, botones, urlbtn, btnretroceso, enviar) {
+///////////////////////////////////
+// / PLANTILLA BOTONERAS //////
+///////////////////////////////////
+
+function botonera(pregunta,pagina, botones, urlbtn,btnretroceso, enviar,urlenviar) {
   pageCaritas.remove();
   pageOptions = document.createElement("section");
   pageOptions.innerHTML = `
@@ -269,15 +262,10 @@ function botonera(pregunta, pagina, botones, urlbtn, btnretroceso, enviar) {
   </div>
   <div id="opt">
   <div>
-    <h2 class="animate__animated animate__zoomIn" id="subpregunta">
-    ${userData.subpregunta}
-    </h2>
   </div>
-  <div id="opt-cont" class="animate__animated animate__zoomIn">
-    
-  </div>
-  </div>
+  <div id="opt-cont" class="animate__animated animate__zoomIn"></div>
   <div id="enviar-cont" class="animate__animated animate__zoomIn"></div>
+  </div>
   </section>`;
 
   document.body.append(pageOptions);
@@ -292,33 +280,26 @@ function botonera(pregunta, pagina, botones, urlbtn, btnretroceso, enviar) {
     option_btn.className = `option`;
     option_btn.value = i + 1;
     option_btn.addEventListener("click", () => {
-      crearrecorrido(pagina);
-      cargarData(i, pagina);
+      crearrecorrido(pagina)
+      cargarData(i+1,pagina,"");
       ObtenerPagina(urlbtn[i]);
     });
     opt_cont.append(option_btn);
   }
 
-  if (btnretroceso == "si") {
-    insertarbotonretroceso();
+  if(btnretroceso == "si"){
+    insertarbotonretroceso()
   }
 
   if (enviar == "si") {
-    insertarbotonenviar();
+    insertarbotonenviar(urlenviar);
   }
+
 }
 
 // ------------------- //
 
-function botoneraSub(
-  pregunta,
-  subpregunta,
-  pagina,
-  botones,
-  urlbtn,
-  btnretroceso,
-  enviar
-) {
+function botoneraSub(pregunta, subpregunta,pagina, botones, urlbtn,btnretroceso, enviar,urlenviar) {
   pageCaritas.remove();
   pageOptions = document.createElement("section");
   pageOptions.innerHTML = `
@@ -335,11 +316,10 @@ function botoneraSub(
     ${subpregunta}
     </h2>
   </div>
-  <div id="opt-cont" class="animate__animated animate__zoomIn">
+  <div id="opt-cont" class="animate__animated animate__zoomIn"></div>
+  <div id="enviar-cont" class="animate__animated animate__zoomIn"></div>
     
   </div>
-  </div>
-  <div id="enviar-cont" class="animate__animated animate__zoomIn"></div>
   </section>`;
 
   document.body.append(pageOptions);
@@ -354,25 +334,28 @@ function botoneraSub(
     option_btn.className = `option`;
     option_btn.value = i + 1;
     option_btn.addEventListener("click", () => {
-      crearrecorrido(pagina);
-      cargarData(i, pagina);
+      crearrecorrido(pagina)
+      cargarData(i+1,pagina);
       ObtenerPagina(urlbtn[i]);
     });
     opt_cont.append(option_btn);
   }
 
-  if (btnretroceso == "si") {
-    insertarbotonretroceso();
+  if(btnretroceso == "si"){
+    insertarbotonretroceso()
   }
 
   if (enviar == "si") {
-    insertarbotonenviar();
+    insertarbotonenviar(urlenviar);
   }
+
 }
 
-// ------------------- //
+///////////////////////////////////
+// / PLANTILLA CAJA DE TEXTO //////
+///////////////////////////////////
 
-function cajatxt(pregunta, pagina, url, btnretroceso, enviar) {
+function cajatxt(pregunta,pagina, url,btnretroceso, enviar,urlenviar) {
   pageTxt = document.createElement("section");
   pageTxt.innerHTML = `
   <section id="face-section">
@@ -384,25 +367,43 @@ function cajatxt(pregunta, pagina, url, btnretroceso, enviar) {
         </div>
         <div id="inpt-cont" class="animate__animated animate__zoomIn">
         <textarea name="adicional" id="coment" cols="30" rows="8"></textarea>
-        </div>
+        ${enviar === "si" ? "" : '<button id="btn-send">Siguiente</button>'}
         <div id="enviar-cont" class="animate__animated animate__zoomIn"></div>
+        </div>
   </section>`;
   document.body.append(pageTxt);
 
+  console.log("enviarr:"+enviar)
+
+  if (enviar == "si") {
+    botonSeleccionado = true;
+    insertarbotonenviar(urlenviar,pagina);
+    
+  }else{
+
+    document.getElementById("btn-send").addEventListener("click", function () {
+      comment = document.getElementById("coment").value;
+      crearrecorrido(pagina)
+      cargarData(0,pagina,comment);
+      ObtenerPagina(url);
+    });
+  }
+
+
   if (ultimotexto !== undefined && ultimotexto !== "") {
-    console.log("cajadetextooo1");
     document.getElementById("coment").value = ultimotexto;
   }
-  if (btnretroceso == "si") {
+
+  console.log("btnretroceso: "+btnretroceso)
+  if(btnretroceso == "si"){
     insertarbotonretroceso();
   }
 
-  if (enviar == "si") {
-    insertarbotonenviar();
-  }
 }
 
-// ------------------- //
+///////////////////////////
+// / PLANTILLA VIDEOS //////
+///////////////////////////
 
 function video(pregunta, pagina, iframe, txt, btnretroceso, enviar, url) {
   pageVideo = document.createElement("section");
@@ -436,91 +437,100 @@ function video(pregunta, pagina, iframe, txt, btnretroceso, enviar, url) {
   }
 }
 
+
 //////////////////////////
 // FUNCIONES AUXILIARES //
 ///////////////////////////
 
-function pushUser() {
-  newUser = new User(calif, aspect, comment, fecha.toLocaleString());
-  localStorage.setItem("users", JSON.stringify(users));
-  storeUser(newUser);
-  storeStorage(users);
-}
-
-// -------------------- //
 
 function cargarData(valor, pagina, texto) {
   let fecha = new Date();
 
+  // console.log("valor:"+valor)
+  // console.log("pagina:"+pagina)
+  // console.log("texto:"+texto)
+
   let registro = {
-    valor: valor,
+    proyecto: userData.code,
     pagina: pagina,
+    valor: valor,
     fecha: fecha,
-    texto: texto || "",
+    texto: texto || ''
   };
 
   datos.push(registro);
+
+  localStorage.setItem('datosGuardados', JSON.stringify(datos));
 }
 
 // -------------------- //
-
-function createGreeting() {
+//findepantalla
+function findepantalla(pagina,texto1,texto2) {
   greeting = document.createElement("section");
   greeting.innerHTML = `
 
     <section id="greeting" class="animate__animated animate__zoomIn">
-      <h1>Enviado!</h1>
-      <p>Muchas gracias! Que tenga un buen dia</p>
+      <h1>${texto1}</h1>
+      <p>>${texto2}</p>
       
     </section>`;
 
   document.body.append(greeting);
 
-  for (let i = 0; i < datos.length; i++) {
-    let registro = datos[i];
-    console.log(`Registro ${i + 1}:`);
-    console.log(`Página: ${registro.pagina}`);
-    console.log(`Valor: ${registro.valor}`);
-    console.log(`Fecha: ${registro.fecha}`);
-    console.log(`Texto: ${registro.texto}`);
-    console.log("------------------");
-  }
+   insertardatos()
 
-  for (let i = 0; i < recorrido.length; i++) {
-    let pocision = datos[i];
-    console.log("Pocision:" + i + ` Página: ${pocision.pagina}`);
-  }
+   setTimeout(() => {
+    location.reload();
+  }, 6000);
+
 }
 
 // -------------------- //
 
-function insertarbotonenviar() {
-  enviar = document.createElement("div");
-  enviar.innerHTML = `<button id="btn-send" class="activo">Enviar formulario</button>`;
-  enviar.style.textAlign = "center";
-
-  document.getElementById("enviar-cont").appendChild(enviar);
-  document
-    .getElementById("btn-enviar")
-    .addEventListener("click", createGreeting);
-}
-
 function insertarbotonretroceso() {
+
   btnretroceso = document.createElement("div");
   btnretroceso.innerHTML = `<button id="retrocesoButton" class="retroceso">Retroceder</button>`;
-  btnretroceso.style.textAlign = "right";
+  btnretroceso.style.textAlign = "right"; 
 
   document.getElementById("cajaretroceso").appendChild(btnretroceso);
+  document.getElementById("retrocesoButton").addEventListener("click", retroceso);
+
+}
+
+function insertarbotonenviar(url,pagina) {
+  enviar = document.createElement("div");
+  enviar.innerHTML = `<button id="btn-send" class="activo">Enviar formulario</button>
+  <div id="error-msg" style="display:none">Debe seleccionar una opción antes de enviar el formulario</div>`;
+  enviar.style.textAlign = "center";
+
+  console.log("url:"+url)
+  document.getElementById("enviar-cont").appendChild(enviar);
   document
-    .getElementById("retrocesoButton")
-    .addEventListener("click", retroceso);
+    .getElementById("btn-send")
+    .addEventListener("click", function() {
+      if (botonSeleccionado) {
+          const commentElement = document.getElementById("coment");
+          if (commentElement) {
+            comment = document.getElementById("coment").value;
+          }
+          cargarData(0,pagina,comment);
+          ObtenerPagina(url);
+      } else {
+        // Si ningún botón está seleccionado, no hacemos nada
+        document.getElementById("error-msg").style.display = "block";
+        console.log("Debe seleccionar una opción antes de enviar el formulario");
+      }
+    });
 }
 
 function crearrecorrido(pagina) {
   recorrido.push(pagina);
+  console.log("recorrido:"+recorrido)
 }
 
 function retroceso() {
+
   paginasiguiente = recorrido.pop();
 
   const commentElement = document.getElementById("coment");
@@ -528,7 +538,23 @@ function retroceso() {
     ultimotexto = commentElement.value;
   }
 
-  console.log("cajadetextooo: " + ultimotexto);
+  console.log("paginasiguiente:"+paginasiguiente)
+  console.log("recorrido:"+recorrido)
+
   datos.pop();
   ObtenerPagina(paginasiguiente);
+
+
+}
+
+function insertardatos() {
+
+  const datosGuardados = localStorage.getItem('datosGuardados');
+  
+  if (datosGuardados) {
+    datosg = JSON.parse(datosGuardados);
+    console.log(datosg);
+  }
+  recorrido = [];
+  ultimotexto = null
 }
