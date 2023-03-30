@@ -410,6 +410,7 @@ function video(pregunta, pagina, iframe, txt, btnretroceso, enviar, url) {
   console.log("iframe" + iframe);
   pageVideo.innerHTML = `
     <section id="face-section">
+    <div id="cajaretroceso"></div>
       <div id="video-container">
         <h1 class="animate__animated animate__zoomIn">${pregunta}</h1>
         <div>
