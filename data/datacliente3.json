@@ -10,7 +10,7 @@
     "btns": [
       {
         "txt": "img/face-1.png",
-        "url": "5"
+        "url": "2"
       },
       {
         "txt": "img/face-2.png",
@@ -22,7 +22,7 @@
       },
       {
         "txt": "img/face-4.png",
-        "url": "3"
+        "url": "2"
       }
     ]
   },
@@ -49,7 +49,7 @@
       },
       {
         "txt": "ESPERA",
-        "url": "4"
+        "url": "3"
       }
     ]
   },

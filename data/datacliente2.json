@@ -1,35 +1,35 @@
 [
   {
     "pagina": "1",
-    "pregunta": "¿Que te parecio la atención del cajero?",
+    "pregunta": "¿Que te parece la marca?",
     "tipo": "caritas",
-    "enviar": "si",
-    "urlfin":"4",
+    "enviar": "no",
+    "urlfin":"",
     "btnretroceso":"no",
+
     "btns": [
       {
         "txt": "img/face-1.png",
-        "url": "2"
+        "url": "5"
       },
       {
         "txt": "img/face-2.png",
-        "url": "2"
+        "url": "5"
       },
       {
         "txt": "img/face-3.png",
-        "url": "2"
+        "url": "3"
       },
       {
         "txt": "img/face-4.png",
-        "url": "2"
+        "url": "3"
       }
     ]
   },
   {
     "pagina": "2",
-    "pregunta": "¿Que te parecio la atención del vendedor?",
-    "subpregunta": "¿Cual es el principal motivo de tu opinion?",
-    "tipo": "botoneraSub",
+    "pregunta": "¿Que te trasmitio la propaganda?",
+    "tipo": "botonera",
     "enviar": "no",
     "urlfin":"",
     "btnretroceso":"si",
@@ -48,13 +48,13 @@
       },
       {
         "txt": "ESPERA",
-        "url": "4"
+        "url": "3"
       }
     ]
   },
   {
     "pagina": "3",
-    "pregunta": "¿Que te parece el servicio de Concierge?",
+    "pregunta": "Quiere dejarnos algun comentario:",
     "tipo": "cajatxt",
     "btnretroceso":"si",
     "enviar": "si",
@@ -67,5 +67,15 @@
     "tipo": "fin",
     "texto": "Muchas gracias! Que tenga un buen dia"
 
+  },
+  {
+    "pagina": "5",
+    "pregunta": "Observe el siguiente video:",
+    "tipo": "video",
+    "iframe": "https://www.youtube.com/embed/G5XWDi0ywWg",
+    "txt": "CONTINUAR",
+    "btnretroceso": "si",
+    "enviar": "no",
+    "url": "2"
   }
 ]
