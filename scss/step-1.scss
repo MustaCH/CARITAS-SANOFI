@@ -1,0 +1,51 @@
+#face-section {
+  padding-top: 5%;
+}
+
+#face-cont {
+  display: flex;
+  justify-content: space-evenly;
+  button {
+    border: hidden;
+  }
+  img {
+    width: 13em;
+    transition: transform 200ms ease-out;
+  }
+  img:hover {
+    transform: translate(0px, 0px) scale(1.3, 1.3);
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  #face-cont {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    button {
+      border: hidden;
+    }
+    img {
+      width: 50%;
+      margin-top: 2%;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 960px) {
+  #face-section {
+    padding-top: 40%;
+    padding-bottom: 40%;
+  }
+
+  #face-cont {
+    display: flex;
+    justify-content: space-between;
+    button {
+      border: hidden;
+    }
+    img {
+      width: 100%;
+    }
+  }
+}

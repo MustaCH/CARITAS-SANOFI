@@ -1,0 +1,75 @@
+[
+  {
+    "code": "1",
+    "logo": "img/farmacity-logo.png",
+    "pregunta": "¿Que te parecio la atención del cajero?",
+    "tipo": "caritas",
+    "btnretroceso": "no",
+    "enviar": "no",
+    "btns": [
+      {
+        "txt": "img/face-1.png",
+        "url": "5"
+      },
+      {
+        "txt": "img/face-2.png",
+        "url": "2"
+      },
+      {
+        "txt": "img/face-3.png",
+        "url": "2"
+      },
+      {
+        "txt": "img/face-4.png",
+        "url": "3"
+      }
+    ]
+  },
+  {
+    "code": "2",
+    "logo": "img/farmacity-logo.png",
+    "pregunta": "¿Que te parecio la atención del vendedor?",
+    "subpregunta": "¿Cual es el principal motivo de tu opinion?",
+    "tipo": "botonera",
+    "btnretroceso": "si",
+    "enviar": "no",
+    "btns": [
+      {
+        "txt": "ATENCION",
+        "url": "3"
+      },
+      {
+        "txt": "AGILIDAD",
+        "url": "3"
+      },
+      {
+        "txt": "FACILIDAD",
+        "url": "3"
+      },
+      {
+        "txt": "ESPERA",
+        "url": "fin"
+      }
+    ]
+  },
+  {
+    "code": "3",
+    "logo": "img/farmacity-logo.png",
+    "pregunta": "¿Que te parece el servicio de Concierge?",
+    "tipo": "cajatxt",
+    "btnretroceso": "si",
+    "enviar": "si",
+    "url": "fin"
+  },
+  {
+    "code": "5",
+    "logo": "img/farmacity-logo.png",
+    "pregunta": "Video presentación",
+    "tipo": "video",
+    "iframe": "https://www.youtube.com/embed/Px_i-ztw8dY",
+    "txt": "CONTINUAR",
+    "btnretroceso": "no",
+    "enviar": "no",
+    "url": "2"
+  }
+]
