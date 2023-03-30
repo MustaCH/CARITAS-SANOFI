@@ -142,7 +142,7 @@ function ObtenerPagina(Urlsiguente) {
             ////////////V
 
             if (pregunta.tipo === "video") {
-              console.log("video:")
+  
               video(
                 pregunta.pregunta,
                 pregunta.pagina,
@@ -373,7 +373,7 @@ function cajatxt(pregunta,pagina, url,btnretroceso, enviar,urlenviar) {
   </section>`;
   document.body.append(pageTxt);
 
-  console.log("enviarr:"+enviar)
+
 
   if (enviar == "si") {
     botonSeleccionado = true;
@@ -394,7 +394,6 @@ function cajatxt(pregunta,pagina, url,btnretroceso, enviar,urlenviar) {
     document.getElementById("coment").value = ultimotexto;
   }
 
-  console.log("btnretroceso: "+btnretroceso)
   if(btnretroceso == "si"){
     insertarbotonretroceso();
   }
@@ -407,7 +406,7 @@ function cajatxt(pregunta,pagina, url,btnretroceso, enviar,urlenviar) {
 
 function video(pregunta, pagina, iframe, txt, btnretroceso, enviar, url) {
   pageVideo = document.createElement("section");
-  console.log("iframe" + iframe);
+
   pageVideo.innerHTML = `
     <section id="face-section">
     <div id="cajaretroceso"></div>
@@ -446,10 +445,6 @@ function video(pregunta, pagina, iframe, txt, btnretroceso, enviar, url) {
 
 function cargarData(valor, pagina, texto) {
   let fecha = new Date();
-
-  // console.log("valor:"+valor)
-  // console.log("pagina:"+pagina)
-  // console.log("texto:"+texto)
 
   let registro = {
     proyecto: userData.code,
@@ -505,7 +500,7 @@ function insertarbotonenviar(url,pagina) {
   <div id="error-msg" style="display:none">Debe seleccionar una opción antes de enviar el formulario</div>`;
   enviar.style.textAlign = "center";
 
-  console.log("url:"+url)
+
   document.getElementById("enviar-cont").appendChild(enviar);
   document
     .getElementById("btn-send")
@@ -520,14 +515,12 @@ function insertarbotonenviar(url,pagina) {
       } else {
         // Si ningún botón está seleccionado, no hacemos nada
         document.getElementById("error-msg").style.display = "block";
-        console.log("Debe seleccionar una opción antes de enviar el formulario");
       }
     });
 }
 
 function crearrecorrido(pagina) {
   recorrido.push(pagina);
-  console.log("recorrido:"+recorrido)
 }
 
 function retroceso() {
@@ -538,9 +531,6 @@ function retroceso() {
   if (commentElement) {
     ultimotexto = commentElement.value;
   }
-
-  console.log("paginasiguiente:"+paginasiguiente)
-  console.log("recorrido:"+recorrido)
 
   datos.pop();
   ObtenerPagina(paginasiguiente);
